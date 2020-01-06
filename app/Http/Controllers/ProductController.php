@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class ProductController extends Controller
@@ -20,8 +21,14 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = Product::all();
+        //Cette variable permet de savoir si la requete vient de l'ajout de course
         $fromCourse = $request->fromCourse;
-        return view('list_products', compact('products', 'fromCourse'));
+        $userId = -1;
+        if (Auth::user())
+            $userId = Auth::user()->getAuthIdentifier();
+
+        $user = User::where('id', $userId)->first();
+        return view('list_products', compact('products', 'fromCourse', 'user'));
     }
 
     /**
@@ -66,7 +73,7 @@ class ProductController extends Controller
         $file->move(public_path() . '/images/', $name);
         $product->image = $name;
         $product->save();
-        return $this->index();
+        return $this->index($request);
 
     }
 
@@ -134,5 +141,21 @@ class ProductController extends Controller
             return view('add_course', compact('productsArray', 'montant'));
         else
             return view('add_course');
+    }
+
+    public function search(Request $request)
+    {
+        $searchKey = $request->search_key;
+        $products = Product::where('libelle', 'LIKE', '%' . $searchKey . "%")->get();
+        if (!$products) {
+            return abort(404);
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['list_products' => $products]);
+        } else {
+            $fromCourse = $request->fromCourse;
+            return view('list_products', compact('products', 'fromCourse'));
+        }
     }
 }

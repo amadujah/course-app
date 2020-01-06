@@ -58,14 +58,14 @@ class CourseController extends Controller
         $course->libelle = $request->title;
         $course->date = $request->date;
         $course->etat = $request->status;
+        $course->amount = $request->amount;
         $course->user_id = Auth::user()->getAuthIdentifier();
         $products = json_decode($request->products, true);
         $course->save();
         //Update product with new course id
         foreach ($products as $p) {
-            DB::table('products')
-                ->where('id', ((object)$p)->id)
-                ->update(['course_id' => $course->id]);
+            //ajouter les produits à la course
+            $course->products()->attach(((object)$p)->id);
         }
         return redirect('/courses')->with('success', 'Course ajoutée avec succès');
 
@@ -79,7 +79,8 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-
+        $course = Course::find($id);
+        return view('details_course', compact('course'));
     }
 
     /**

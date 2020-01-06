@@ -1,0 +1,25 @@
+input:invalid {
+    border: 2px red;
+}
+
+input:valid {
+    border: 1px solid green;
+}
+.center_div{
+    margin: 0 auto;
+    width:100% /* value of your choice which suits your alignment */
+}
+body {
+    /*Image de fond*/
+    background-image: url("/course_app/public/images/fond.jpg");
+}
+input.register {
+    border: 1px solid cadetblue;
+}
+a {
+    color: #6f42c1;
+}
+.table > tbody > tr > th.course_title {
+    vertical-align: middle;
+
+}

@@ -2,7 +2,7 @@ function reset(form) {
     form.reset();
 }
 
-function  formatDate(form) {
+function formatDate(form) {
 
 }
 
@@ -12,8 +12,7 @@ function formatCheckBox() {
     $(".image-checkbox").each(function () {
         if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
             $(this).addClass('image-checkbox-checked');
-        }
-        else {
+        } else {
             $(this).removeClass('image-checkbox-checked');
         }
     });
@@ -22,8 +21,16 @@ function formatCheckBox() {
     $(".image-checkbox").on("click", function (e) {
         $(this).toggleClass('image-checkbox-checked');
         var $checkbox = $(this).find('input[type="checkbox"]');
-        $checkbox.prop("checked",!$checkbox.prop("checked"))
+        $checkbox.prop("checked", !$checkbox.prop("checked"))
 
         e.preventDefault();
     });
+}
+
+function formValidator(form) {
+    var senderMail = form['sender_mail'];
+    if (senderMail.length === 0) {
+        $('.invalid').style('border', 'color', 'red');
+    }
+
 }

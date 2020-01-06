@@ -18,10 +18,10 @@
             <th scope="col">Action</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-bordered table-hover">
         @foreach($courses as $course)
             <tr>
-                <th scope="row">{{$course->libelle}}</th>
+                <th class="course_title align-middle" scope="row">{{$course->libelle}}</th>
                 <td>
                     @foreach($course->products as $product)
                         <ol class="list-group">

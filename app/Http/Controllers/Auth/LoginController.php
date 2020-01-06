@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function checkEmail(Request $request) {
+        $email = $request->email;
+        var_dump($email);
+        $user = User::where('email', $email)->first();
+        var_dump($user);
+        if (!$user)
+            return response()->json('Cet email ne correspond à un aucun compte');
+        else
+            return response()->json('Success');
     }
 }

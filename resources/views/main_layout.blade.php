@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{csrf_token()}}" />
 
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
+    <link rel="shortcut icon" href="{{ ('public/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/custom-style.css') }}">
     <style>
         body {
-            background-image: url("/public/fond.jpg");
             /*background-color:aliceblue;*/
             font-family: 'Libre Baskerville', serif;
 
@@ -35,7 +37,7 @@
         }
 
         #onglet_navigation {
-            background-image: url(argent.jpg);
+            /*background-image: url(argent.jpg);*/
             background-repeat: no-repeat;
             width: 100%;
             height: 50%;
@@ -146,8 +148,8 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" style="background-color:black;">
                     <ul class="nav navbar-nav" id="navigation">
-                        <li><a href="#" title="Aide">Aide</a></li>
-                        <li><a href="#" title="Nous contacter">Nous contacter </a></li>
+                        <li><a href="{{ url('aide') }}" title="Aide">Aide</a></li>
+                        <li><a href="{{ url('contact') }}" title="Nous contacter">Nous contacter </a></li>
                         <li><a href="{{ url('products') }}">Produits</a></li>
                         <li><a href="{{ url('courses')  }}">Mes Courses</a></li>
                         <li><a href="{{ route('home')  }}">Accueil</a></li>
@@ -170,7 +172,7 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="espace" title="accueil compte">Accueil compte</a>
+                                        <a href="{{url('profile')}}" title="accueil compte">Accueil compte</a>
                                     </li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
@@ -197,16 +199,6 @@
                             </div>
                         @endif
                     </ul>
-                    <div class="col-sm-3 col-md-3 pull-right">
-                        <form class="navbar-form" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -219,5 +211,28 @@
 </div>
 <!-- Scripts -->
 <script src="/js/app.js"></script>
+<script type="text/javascript">
+    $('#search').on('keyup', function () {
+        console.log('search');
+        var $form = $('.mForm');
+        $value = $(this).val();
+        url = $form.attr('action');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            data: {'search': $value},
+            success: function (data) {
+                console.log('data ' + data);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
+</script>
+<script type="text/javascript">
+    $.ajaxSetup({headers: {'csrftoken': '{{ csrf_token() }}'}});
+</script>
 </body>
 </html>

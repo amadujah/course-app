@@ -11,6 +11,6 @@ class Product extends Model
 
     public function company()
     {
-        return $this->belongsTo('App\Company');
+        return $this->belongsToMany('App\Company');
     }
 }

@@ -9,7 +9,7 @@ class Course extends Model
     protected $table = 'courses';
 
     public function products() {
-        return $this->hasMany('App\Product');
+        return $this->belongsToMany('App\Product');
     }
 
     public function user() {

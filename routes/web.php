@@ -15,9 +15,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 
 Auth::routes();
@@ -29,6 +27,14 @@ Route::resource('/courses', 'CourseController');
 /*Les methodes des produits*/
 Route::resource('/products', 'ProductController');
 Route::post('/courses.create', 'ProductController@addCourse')->name('send-products');
+Route::get('/products.search', 'ProductController@search')->name('search');
+
+Route::resource('/profile', 'UserController');
+Route::get('/contact', 'HomeController@contact');
+Route::get('/aide', 'HomeController@help');
+Route::post('/checkEmail', 'Auth\LoginController@checkEmail')->name('checkEmail');
+
+
 
 
 

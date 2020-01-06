@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <h2>Ajout d'une course</h2>
+    <h2 class="well well-sm">Ajout d'une course</h2>
     <form class="col-lg-4" method="post" action="{{route("courses.store")}}">
         {{ csrf_field() }}
         <div class="form-group">
@@ -31,7 +31,8 @@
         @endif
         <div class="form-group">
             <label for="libelleCourse">Montant de la course</label>
-            <input type="text" class="form-control" id="libelleCourse" name="amount" required value="{{$montant}}">
+            <input type="text" class="form-control" id="libelleCourse" name="amount" required value="{{$montant}}"
+                   disabled>
         </div>
         <div class="form-group">
             <p>Selectionner l'état de la course</p>

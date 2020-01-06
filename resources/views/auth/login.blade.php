@@ -1,69 +1,113 @@
 @extends('main_layout')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Login</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+                    <div class="panel-body">
+                        <form id="mForm" class="form-horizontal" method="POST" action="{{ route('login') }}">
+                            {{ csrf_field() }}
+                            <input id="end-point" type="hidden" value="{{route('checkEmail')}}">
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">Adresse E-Mail</label>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                                <div class="col-md-6 email">
+                                    <input id="email" type="email" class="form-control register" name="email"
+                                           value="{{ old('email') }}" required autofocus>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
+                                    @endif
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" class="col-md-4 control-label">Mot de passe</label>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Mot de passe oublié?
-                                </a>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control register" name="password"
+                                           required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    </form>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"
+                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> Se souvenir
+                                            de moi
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Se connecter
+                                    </button>
+
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        Mot de passe oublié?
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //setup before functions
+            var typingTimer;                //timer identifier
+            var doneTypingInterval = 5000;  //time in ms (5 seconds)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#email").keyup(function (e) {
+                clearTimeout(typingTimer);
+                var re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+                if (re.test(String($('#email').val()).toLowerCase())) {
+                    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                }
+            });
+        });
+        function doneTyping() {
+            const url = $('#end-point').val();
+            console.log(url);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data : {
+                    'email' : $('#email').val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log('data ' + data);
+                    $('.email').css("background-color", "yellow");
+                },
+                error: function (err) {
+                    console.log(err.responseText);
+                }
+            });
+        }
+    </script>
 @endsection
