@@ -59,13 +59,13 @@ class ProductController extends Controller
         ]);
         $product->libelle = $request->title;
         $product->price = $request->price;
+        $product->quantity = $request->quantity;
+
         $product->categorie = $request->categorie;
         if ($request->availability == 'disponible')
             $product->disponibilite = true;
         else
             $product->disponibilite = false;
-
-
         $file = $request->file('image');
         //getting timestamp
         $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
@@ -73,7 +73,7 @@ class ProductController extends Controller
         $file->move(public_path() . '/images/', $name);
         $product->image = $name;
         $product->save();
-        return $this->index($request);
+        return redirect()->route('products.index');
 
     }
 
@@ -155,7 +155,8 @@ class ProductController extends Controller
             return response()->json(['list_products' => $products]);
         } else {
             $fromCourse = $request->fromCourse;
-            return view('list_products', compact('products', 'fromCourse'));
+            $user = Auth::user();
+            return view('list_products', compact('products', 'fromCourse', 'user'));
         }
     }
 }

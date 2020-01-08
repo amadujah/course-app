@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -55,6 +55,9 @@ class CourseController extends Controller
     {
         Auth::user();
         $course = new Course();
+        $this->validate($request, [
+            'products'=> 'required'
+        ]);
         $course->libelle = $request->title;
         $course->date = $request->date;
         $course->etat = $request->status;
@@ -105,6 +108,9 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'products'=> 'required'
+        ]);
         $course = Course::find($id);
         $course->libelle = $request->title;
         $course->date = $request->date;
@@ -112,10 +118,11 @@ class CourseController extends Controller
         $products = json_decode($request->products, true);
         $course->save();
         //Update product with new course id
-        foreach ($products as $p) {
-            DB::table('products')
-                ->where('id', ((object)$p)->id)
-                ->update(['course_id' => $course->id]);
+        if ($products != null) {
+            foreach ($products as $p) {
+                //ajouter les produits à la course
+                $course->products()->attach(((object)$p)->id);
+            }
         }
         return redirect('/courses')->with('success', 'Course mise à jour avec succès');
 
@@ -132,6 +139,32 @@ class CourseController extends Controller
         DB::table('courses')
             ->where('id', $id)
             ->delete();
+        return redirect('courses');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function addReceipt(Request $request)
+    {
+        var_dump($request->file('receipt'));
+        $this->validate($request, [
+            'receipt' => 'required'
+        ]);
+        $uploadedFile = $request->file('receipt');
+        $filename = time() . $uploadedFile->getClientOriginalName();
+
+        Storage::disk('local')->putFileAs(
+            'files/' . $filename,
+            $uploadedFile,
+            $filename
+        );
+        var_dump($filename);
+        $courseId = $request->courseId;
+        $course = Course::where('id', $courseId)->first();
+        $course->receipt = $filename;
+
         return redirect('courses');
     }
 }

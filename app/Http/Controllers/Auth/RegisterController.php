@@ -48,10 +48,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|min:6',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ], ['password.min' => 'Pour des raisons de sécurité, votre mot de passe doit faire 6 caractères.']);
+        ], ['password.min' => 'Pour des raisons de sécurité, votre mot de passe doit faire 6 caractères.',
+            'name.min' => 'Le nom doit contenir 6 caractères minimum']);
     }
 
     /**
@@ -65,6 +66,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'type' => User::DEFAULT_TYPE,
             'password' => bcrypt($data['password']),
         ]);
     }

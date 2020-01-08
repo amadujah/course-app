@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -26,8 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    const ADMIN_TYPE = 'admin';
+    const DEFAULT_TYPE = 'default';
 
-    public function courses() {
+    public function courses()
+    {
         return $this->hasMany('App\Course');
+    }
+
+    public function isAdmin()
+    {
+        return $this->type === self::ADMIN_TYPE;
     }
 }

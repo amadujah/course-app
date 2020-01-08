@@ -4,48 +4,59 @@
 @endsection
 
 @section('content')
-    <a class="left btn btn-primary" href="{{ route("courses.create") }}">Ajouter une course</a>
-    @if(session('success'))
-        <div class="alert alert-success"> {{session('success')}} </div>
-    @endif
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Intitulé</th>
-            <th scope="col">Produits</th>
-            <th scope="col">Etat</th>
-            <th scope="col">date</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody class="table-bordered table-hover">
-        @foreach($courses as $course)
-            <tr>
-                <th class="course_title align-middle" scope="row">{{$course->libelle}}</th>
-                <td>
-                    @foreach($course->products as $product)
-                        <ol class="list-group">
-                            <li class="list-group-item">{{$product->libelle}} | {{$product->price}} €</li>
-                        </ol>
-                    @endforeach
-                </td>
-                <td>{{ $course->etat}}</td>
-                <td class="date-course">
-                    {{\Carbon\Carbon::parse($course->date)->format('l d F Y')}}
-                </td>
-                <td>
-                    <a class="btn btn-warning" href="{{route('courses.edit', $course->id)}}">Modifier</a>
-                    <a class="btn btn-info" href="{{route('courses.show', $course->id)}}">Détails</a>
-                    <form action="{{route('courses.destroy', $course->id)}}" method="post" class="label">
-                        {{csrf_field()}}
-                        <input name="_method" type="hidden" value="DELETE">
-                        <button class="btn btn-danger" type="submit"
-                                onclick="return confirm('Voulez-vous supprimer cet élément?')">Supprimer
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="card col-xl-12 offset-sm-0">
+        <div class="card-header"><a class="left btn btn-primary" href="{{ route("courses.create")}}">Ajouter une
+                course</a>
+            @if(session('success'))
+                <div class="alert alert-success">{{session('success')}}</div>@endif</div>
+        @if(count($courses)!=0)
+            <section class="pricing py-5">
+                <div class="container">
+                    <div class="row">
+                        <!-- Free Tier -->
+                        @foreach($courses as $course)
+                            <div class="col-lg-4">
+                                <div class="card mb-5 mb-lg-0">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-muted text-uppercase text-center">{{\Carbon\Carbon::parse($course->date)->format('l d F Y')}}</h4>
+                                        <h4 class="card-title text-center">{{ $course->libelle }}</h4>
+                                        <h3 class="card-title text-center btn-outline-">{{ $course->etat }}</h3>
+
+                                        <hr>
+                                        @foreach($course->products as $product)
+
+                                            <ul class="fa-ul">
+                                                <li class="list-group-item">{{$product->libelle}}
+                                                    | {{$product->price}} €
+                                                </li>
+
+                                            </ul>
+                                        @endforeach
+                                        <a class="btn btn-warning"
+                                           href="{{route('courses.edit', $course->id)}}"><i
+                                                    class="fa fa-edit fa-lg"></i></a>
+                                        <a
+                                                class="btn btn-info"
+                                                href="{{route('courses.show', $course->id)}}"><i
+                                                    class="fa fa-eye fa-lg"></i></a>
+                                        <form action="{{route('courses.destroy', $course->id)}}"
+                                              method="post" class="btn">{{csrf_field()}}
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button class="btn btn-danger" type="submit"
+                                                    onclick="return confirm('Voulez-vous supprimer cet &#xE9;l&#xE9;ment?')">
+                                                <i class="fa fa-trash fa-lg"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @else
+            <p>pas de courses existantes</p>
+        @endif
+    </div>
+
 @endsection

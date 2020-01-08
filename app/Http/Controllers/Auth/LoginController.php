@@ -39,14 +39,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function checkEmail(Request $request) {
+    public function checkEmail(Request $request)
+    {
         $email = $request->email;
-        var_dump($email);
         $user = User::where('email', $email)->first();
-        var_dump($user);
         if (!$user)
-            return response()->json('Cet email ne correspond à un aucun compte');
+            return response()->json(['status' => 'failure']);
         else
-            return response()->json('Success');
+            return response()->json(['status' => 'success']);
     }
 }

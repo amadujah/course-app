@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{csrf_token()}}" />
+    <meta name="csrf-token" content="{{csrf_token()}}"/>
 
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="{{ ('public/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('public/css/custom-style.css') }}">
     <style>
@@ -118,121 +118,85 @@
 
     </style>
 
-    <script>
-
-        /**
-         * @return {boolean}
-         */
-        function ConfirmDelete() {
-            return confirm("Voulez-vous vraiment supprimer ce produit?");
-        }
-    </script>
 </head>
 <body>
 <header>
-    <div style="background-color:black; color:white;font-size: large;font-family: fantasy;">
-        <div>
-            <div class="container">
-                <a id="logo" href="{{ url('home')  }}" class="navbar-brand"
-                   style="color: white; font-size: large;font-family: fantasy; ">Course App</a>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url('home')  }}">CourseApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('home')  }}">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('courses')  }}">Mes Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('products')  }}">Produits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('contact')  }}">Contactez-nous</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('aide') }}">Aide</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                <!-- Authentication Links -->
+                @if (Auth::guest())
+                    <li><a class="btn" href="{{ url('/login') }}">Se connecter</a></li>
+                    <li><a class="btn" href="{{ url('/register') }}">S'inscrire</a></li>
+                @else
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                data-toggle="dropdown"> {{ Auth::user()->name }}
+                            <span class="caret"></span></button>
 
 
-            </div>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{url('profile')}}" title="accueil compte" class="dropdown-item">Accueil
+                                    compte</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/logout') }}" class="dropdown-item"
+                                   onclick="event.preventDefault();
+                                                                 document.getElementById('logout-form').submit();">
+                                    Se deconnecter
+                                </a>
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                                      style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
+            </ul>
         </div>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" style="background-color:black;">
-                    <ul class="nav navbar-nav" id="navigation">
-                        <li><a href="{{ url('aide') }}" title="Aide">Aide</a></li>
-                        <li><a href="{{ url('contact') }}" title="Nous contacter">Nous contacter </a></li>
-                        <li><a href="{{ url('products') }}">Produits</a></li>
-                        <li><a href="{{ url('courses')  }}">Mes Courses</a></li>
-                        <li><a href="{{ route('home')  }}">Accueil</a></li>
-
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Se connecter</a></li>
-                            <li><a href="{{ url('/register') }}">S'inscrire</a></li>
-                        @else
-
-
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button"
-                                        data-toggle="dropdown"> {{ Auth::user()->name }}
-                                    <span class="caret"></span></button>
-
-
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{url('profile')}}" title="accueil compte">Accueil compte</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-
-                                        </a>
-
-
-                                        <a href="{{ url('/logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Se deconnecter
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST"
-                                              style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-
-
-                                </ul>
-                            </div>
-                        @endif
-                    </ul>
-
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-    </div>
+    </nav>
 </header>
 <div class="container">
 
     @yield('content')
 </div>
 <!-- Scripts -->
-<script src="/js/app.js"></script>
-<script type="text/javascript">
-    $('#search').on('keyup', function () {
-        console.log('search');
-        var $form = $('.mForm');
-        $value = $(this).val();
-        url = $form.attr('action');
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: 'json',
-            data: {'search': $value},
-            success: function (data) {
-                console.log('data ' + data);
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    })
-</script>
-<script type="text/javascript">
-    $.ajaxSetup({headers: {'csrftoken': '{{ csrf_token() }}'}});
-</script>
+<script src="{{asset('js/app.js')}}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

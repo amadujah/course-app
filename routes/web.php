@@ -22,7 +22,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 /*Les méthodes des courses */
+Route::post('add-receipt', 'CourseController@addReceipt')->name('add-receipt');
 Route::resource('/courses', 'CourseController');
+
 
 /*Les methodes des produits*/
 Route::resource('/products', 'ProductController');

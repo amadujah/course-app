@@ -18,6 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('libelle');
             $table->string('etat');
             $table->date('date');
+            $table->string('receipt')->nullable();
             $table->integer('amount')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')

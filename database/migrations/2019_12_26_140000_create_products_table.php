@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->string('libelle');
             $table->string('categorie');
+            $table->integer('quantity');
             $table->string('image');
             $table->boolean('disponibilite');
             $table->timestamps();
