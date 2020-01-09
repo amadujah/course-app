@@ -8,7 +8,9 @@
         <div class="card-header"><a class="left btn btn-primary" href="{{ route("courses.create")}}">Ajouter une
                 course</a>
             @if(session('success'))
-                <div class="alert alert-success">{{session('success')}}</div>@endif</div>
+                <div class="alert alert-success">{{session('success')}}</div>
+            @endif
+        </div>
         @if(count($courses)!=0)
             <section class="pricing py-5">
                 <div class="container">
@@ -18,10 +20,10 @@
                             <div class="col-lg-4">
                                 <div class="card mb-5 mb-lg-0">
                                     <div class="card-body">
+                                        <?php \Carbon\Carbon::setLocale('fr')?>
                                         <h4 class="card-title text-muted text-uppercase text-center">{{\Carbon\Carbon::parse($course->date)->format('l d F Y')}}</h4>
                                         <h4 class="card-title text-center">{{ $course->libelle }}</h4>
                                         <h3 class="card-title text-center btn-outline-">{{ $course->etat }}</h3>
-
                                         <hr>
                                         @foreach($course->products as $product)
 

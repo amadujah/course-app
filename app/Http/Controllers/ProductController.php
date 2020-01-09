@@ -49,7 +49,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        var_dump($request);
+
         $product = new Product();
+
         $this->validate($request, [
             'title' => 'required',
             'image' => 'required|image',
@@ -146,11 +149,16 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $searchKey = $request->search_key;
-        $products = Product::where('libelle', 'LIKE', '%' . $searchKey . "%")->get();
+        var_dump($request->categorie . ' ' . $request->search_key);
+        //Si c'est une requete du champ de recherche on fait la requete suivante sinon on cherche en fonction de
+        //la catégorie
+        if ($searchKey)
+            $products = Product::where('libelle', 'LIKE', '%' . $searchKey . "%")->get();
+        else
+            $products = Product::where('categorie', $request->categorie)->get();
         if (!$products) {
             return abort(404);
         }
-
         if ($request->ajax()) {
             return response()->json(['list_products' => $products]);
         } else {

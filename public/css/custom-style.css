@@ -144,8 +144,6 @@ fieldset legend {
     --input-padding-y: .75rem;
 }
 
-body {
-    background: #33AEFF;}
 
 .card-signin {
     border: 0;
@@ -361,6 +359,7 @@ li.list-group-item {
     background-color: cornflowerblue;
     border: 1px solid rgba(0, 0, 0, .125);
 }
+
 /*
 .table .thead-light th {
 
@@ -373,8 +372,7 @@ li.list-group-item {
 }*/
 
 section.pricing {
-    background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);
+
 }
 
 .pricing .card {
@@ -430,6 +428,7 @@ section.pricing {
         margin-bottom: .25rem;
         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
     }
+
     .pricing .card:hover .btn {
         opacity: 1;
     }

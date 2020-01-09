@@ -13,7 +13,7 @@
                             <input id="email" type="email" class="form-control" name="email"
                                    value="{{ old('email') }}" required autofocus>
                             <label for="email">Adresse E-Mail</label>
-
+                            <strong class="invalid"></strong>
                             @if ($errors->has('email'))
                                 <span class="help-block">
                                         <strong class="invalid">{{ $errors->first('email') }}</strong>
@@ -63,7 +63,6 @@
             });
 
             $("#email").blur(function (e) {
-                clearTimeout(typingTimer);
                 doneTyping();
             });
         });
@@ -80,10 +79,14 @@
                 dataType: 'json',
                 success: function (data) {
                     console.log('data ' + data['status']);
-                    if (data['status'] === 'failure')
+                    if (data['status'] === 'failure') {
                         $('#email').css({'border': '1px solid red'});
+                        $('.invalid').html('Email inexsitant').show().css({'color': 'red'});
+                    }
+
                     else {
                         $('#email').css({'border': '1px solid green'});
+                        $('.invalid').hide();
                     }
                 },
                 error: function (err) {

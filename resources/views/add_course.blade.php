@@ -32,7 +32,8 @@
                         </div>
                     @else
                         <div>
-                            <h3><a href="{{ route('products.index', ['fromCourse' => 1]) }}">Choisir les produits</a>
+                            <h3><a href="{{ route('products.index', ['fromCourse' => 1]) }}" aria-required="true">Choisir
+                                    les produits</a>
                             </h3>
                         </div>
                     @endif
@@ -62,7 +63,9 @@
 
                     <a type="submit" class="btn btn-danger btn-lg" href="{{url()->previous()}}" style="color: white">Annuler</a>
 
-                    <button type="submit" class="btn btn-success btn-lg">Enregistrer</button>
+                    <button type="submit" class="btn btn-success btn-lg" {{ !isset($productsArray) ?'disabled' : ''}}>
+                        Enregistrer
+                    </button>
                 </form>
                 <script type="text/javascript">
                     document.getElementsByClassName('form_datetime').datetimepicker({

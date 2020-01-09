@@ -8,6 +8,7 @@
     <div class="card shopping-cart">
         <div class="card card-primary">
             <div class="card-header">
+                {{--Mettre la premiere lette du libellé en majuscule--}}
                 <h3 class="card-title text-center">{{ucfirst($course->libelle)}}
                     du {{\Carbon\Carbon::parse($course->date)->format('l d F Y')}}</h3>
             </div>
@@ -33,6 +34,29 @@
                         <hr>
 
                     @endforeach
+                    @if($course->receipt)
+                        <a href="#" class="pop">
+                            <img src="{{ url('public/receipts/'.$course->receipt) }}"
+                                 style="width: 40px; height: 26px;" alt="reçu">
+                            Afficher le reçu de la course
+                        </a>
+
+                        <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal"><span
+                                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                        </button>
+                                        <img src="" class="imagepreview" style="width: 100%; height: auto"
+                                             alt="product">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -48,10 +72,8 @@
                 </div>
             </div>
             <div class="col-sm-6 float-xs-right">
-                <form action="{{route('add-receipt', $course->id)}}" class="form-row form-inline" method="post"
-
-
-
+                <form action="{{route('add-receipt', ['courseId' => $course->id])}}" class="form-row form-inline"
+                      method="post"
                       enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group row">
@@ -66,4 +88,12 @@
         </div>
 
     </div>
+    <script>
+        $(function () {
+            $('.pop').on('click', function () {
+                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                $('#imagemodal').modal('show');
+            });
+        });
+    </script>
 @endsection

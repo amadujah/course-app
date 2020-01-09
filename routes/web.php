@@ -29,7 +29,8 @@ Route::resource('/courses', 'CourseController');
 /*Les methodes des produits*/
 Route::resource('/products', 'ProductController');
 Route::post('/courses.create', 'ProductController@addCourse')->name('send-products');
-Route::get('/products.search', 'ProductController@search')->name('search');
+Route::post('/products.search', 'ProductController@search')->name('search');
+
 
 Route::resource('/profile', 'UserController');
 Route::get('/contact', 'HomeController@contact');

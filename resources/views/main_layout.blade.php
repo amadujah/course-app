@@ -18,6 +18,7 @@
     <style>
         body {
             /*background-color:aliceblue;*/
+            background: url('{{asset('public/images/background.jpg')}}');
             font-family: 'Libre Baskerville', serif;
 
         }

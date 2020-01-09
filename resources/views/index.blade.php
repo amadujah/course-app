@@ -27,8 +27,7 @@
                                 <div class="col-item">
                                     <div class="photo">
                                         <img src="{{ url('public/images/'.$product->image) }}" class="img-responsive"
-                                             alt="{{$items++}}" width="350" height="260"/>
-                                        {{$items}}
+                                             alt="" width="350" height="260"/>
                                     </div>
                                     <div class="info">
                                         <div class="row">

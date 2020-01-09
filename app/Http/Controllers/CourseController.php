@@ -30,7 +30,7 @@ class CourseController extends Controller
     {
         Auth::user();
         $userId = Auth::user()->getAuthIdentifier();
-        $courses = Course::where('user_id', $userId)->get();
+        $courses = Course::orderBy('date', 'desc')->where('user_id', $userId)->get();
         return view("list_course", compact('courses'));
     }
 
@@ -117,7 +117,7 @@ class CourseController extends Controller
         $course->etat = $request->status;
         $products = json_decode($request->products, true);
         $course->save();
-        //Update product with new course id
+        //Lier la sélection de produits à la course
         if ($products != null) {
             foreach ($products as $p) {
                 //ajouter les produits à la course
@@ -148,22 +148,17 @@ class CourseController extends Controller
      */
     public function addReceipt(Request $request)
     {
-        var_dump($request->file('receipt'));
         $this->validate($request, [
             'receipt' => 'required'
         ]);
         $uploadedFile = $request->file('receipt');
         $filename = time() . $uploadedFile->getClientOriginalName();
 
-        Storage::disk('local')->putFileAs(
-            'files/' . $filename,
-            $uploadedFile,
-            $filename
-        );
-        var_dump($filename);
+        $uploadedFile->move(public_path() . '/receipts/', $filename);
         $courseId = $request->courseId;
         $course = Course::where('id', $courseId)->first();
         $course->receipt = $filename;
+        $course->save();
 
         return redirect('courses');
     }

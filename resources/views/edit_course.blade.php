@@ -36,8 +36,8 @@
                         </div>
                     @endif
                     <div class="form-group">
-                        <label for="libelleCourse">Montant de la course</label>
-                        <input type="number" class="form-control" id="libelleCourse" name="amount" placeholder="montant"
+                        <label for="courseAmount">Montant de la course</label>
+                        <input type="number" class="form-control" id="libelleCourse" name="courseAmount" placeholder="montant"
                                value="{{$course->amount}}" required>
                     </div>
                     <div class="form-group">
