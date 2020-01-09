@@ -49,8 +49,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request);
-
         $product = new Product();
 
         $this->validate($request, [
