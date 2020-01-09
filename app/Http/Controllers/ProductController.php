@@ -149,7 +149,6 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $searchKey = $request->search_key;
-        var_dump($request->categorie . ' ' . $request->search_key);
         //Si c'est une requete du champ de recherche on fait la requete suivante sinon on cherche en fonction de
         //la catégorie
         if ($searchKey)

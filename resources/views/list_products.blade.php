@@ -51,13 +51,13 @@
         </div>
 
     </div>
-        <div class="row">
-            <div class="card col-xl-12 offset-sm-0 shadow">
-                <div class="card-header">
-                    <h5 class="card-title text-center">Liste de Produits</h5>
-                </div>
-                <div class="card-body " style="padding: 2%">
-                    @if(count($products)!=0)
+    <div class="row">
+        <div class="card col-xl-12 offset-sm-0 shadow">
+            <div class="card-header">
+                <h5 class="card-title text-center">Liste de Produits</h5>
+            </div>
+            <div class="card-body " style="padding: 2%">
+                @if(count($products)!=0)
 
                     <form method="post" action="{{ route('send-products') }}">
 
@@ -107,12 +107,6 @@
 
                                                     @endif
                                                 </div>
-                                                <div class="col">
-                                                    <input type="submit"
-                                                           href="http://www.jquery2dotnet.com"
-                                                           class=" btn btn-primary"
-                                                           value="Ajouter à une course" {{$product->quantity <=0 ? 'disabled': ''}}/>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -133,14 +127,14 @@
                             @endif
                         </div>
                     </form>
-                    @else
-                        <div class="text-warning">Aucun produit existant</div>
-                    @endif
-                </div>
-
-
+                @else
+                    <div class="text-warning">Aucun produit existant</div>
+                @endif
             </div>
+
+
         </div>
+    </div>
     <script type="text/javascript">
         $('select#categorie').change(function (e) {
             console.log($(this).children("option:selected").val());

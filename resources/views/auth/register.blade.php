@@ -1,13 +1,15 @@
 @extends('main_layout')
-
+@section('title')
+    Inscription
+@endsection
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="card shadow">
+        <div class="row justify-content-md-center">
+            <div class="col-md-8 offset-md-2 ">
+                <div class="card shadow ">
                     <div class="card-header">Inscription</div>
 
-                    <div class="card-block">
+                    <div class="card-body  justify-content-md-center">
                         <form class="" method="POST" action="{{ route('register') }}">
                             {{ csrf_field() }}
 
@@ -45,7 +47,8 @@
                                 <label for="password" class="col-md-4 form-control-label">Mot de passe</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control register" name="password" required>
+                                    <input id="password" type="password" class="form-control register" name="password"
+                                           required>
 
                                     @if ($errors->has('password'))
                                         <span class="form-text">

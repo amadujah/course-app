@@ -151,8 +151,8 @@
 
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a class="btn" href="{{ url('/login') }}">Se connecter</a></li>
-                    <li><a class="btn" href="{{ url('/register') }}">S'inscrire</a></li>
+                    <li><a class="btn btn-outline-primary" href="{{ url('/login') }}">Se connecter</a></li>
+                    <li><a class="btn btn-outline-primary" href="{{ url('/register') }}">S'inscrire</a></li>
                 @else
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button"
@@ -188,7 +188,8 @@
     @yield('content')
 </div>
 <!-- Scripts -->
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{asset('public/js/custom.js')}}"></script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 

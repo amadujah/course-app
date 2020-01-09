@@ -47,11 +47,11 @@
                                         <div class="separator clear-left">
                                             <p class="btn-add">
                                                 <i class="fa fa-shopping-cart"></i><a
-                                                        href="http://www.jquery2dotnet.com"
+                                                        href="#"
                                                         class="hidden-sm">Ajouter à une
                                                     course</a></p>
                                             <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com"
+                                                <i class="fa fa-list"></i><a href="#"
                                                                              class="hidden-sm">plus de details</a></p>
                                         </div>
                                         <div class="clearfix">

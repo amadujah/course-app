@@ -1,4 +1,7 @@
 @extends('main_layout')
+@section('title')
+    Connexion
+@endsection
 @section('content')
 
     <div class="row">
@@ -38,7 +41,7 @@
                             <label class="custom-control-label" for="customCheck1">Se souvenir
                                 de moi</label>
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Se connecter
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" id="login" type="submit">Se connecter
                         </button>
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             Mot de passe oublié?
@@ -51,11 +54,7 @@
     </div>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
-            //setup before functions
-            var typingTimer;                //timer identifier
-            var doneTypingInterval = 5000;  //time in ms (5 seconds)
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -63,36 +62,9 @@
             });
 
             $("#email").blur(function (e) {
-                doneTyping();
+                login('{{route('checkEmail')}}','Cet email n\'existe pas');
             });
         });
 
-        function doneTyping() {
-            const url = $('#end-point').val();
-            console.log(url);
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    'email': $('#email').val()
-                },
-                dataType: 'json',
-                success: function (data) {
-                    console.log('data ' + data['status']);
-                    if (data['status'] === 'failure') {
-                        $('#email').css({'border': '1px solid red'});
-                        $('.invalid').html('Email inexsitant').show().css({'color': 'red'});
-                    }
-
-                    else {
-                        $('#email').css({'border': '1px solid green'});
-                        $('.invalid').hide();
-                    }
-                },
-                error: function (err) {
-                    console.log(err.responseText);
-                }
-            });
-        }
     </script>
 @endsection
