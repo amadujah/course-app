@@ -1,5 +1,5 @@
 Ceci est projet scolaire utilisant le framework Laravel (v.5.4)
-## About Laravel
+## A propos de CourseApp
 
 Course App est une application web permettant d'effectuer ses "courses-maisons". 
 L'application dispose de deux principales fonctionnalités : la ## <b>gestion de course et la gestion de produits</b>. 
