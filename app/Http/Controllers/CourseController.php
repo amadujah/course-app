@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -30,7 +30,11 @@ class CourseController extends Controller
     {
         Auth::user();
         $userId = Auth::user()->getAuthIdentifier();
-        $courses = Course::orderBy('date', 'desc')->where('user_id', $userId)->get();
+        $user = User::where('id', $userId)->first();
+        if (!$user->isAdmin())
+            $courses = Course::orderBy('date', 'desc')->where('user_id', $userId)->get();
+        else
+            $courses = Course::orderBy('date', 'desc')->get();
         return view("courses.list_course", compact('courses'));
     }
 
@@ -56,7 +60,7 @@ class CourseController extends Controller
         Auth::user();
         $course = new Course();
         $this->validate($request, [
-            'products'=> 'required'
+            'products' => 'required'
         ]);
         $course->libelle = $request->title;
         $course->date = $request->date;
@@ -111,7 +115,7 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'products'=> 'required'
+            'products' => 'required'
         ]);
         $course = Course::find($id);
         $course->libelle = $request->title;
