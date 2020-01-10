@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2020 at 02:23 PM
+-- Generation Time: Jan 10, 2020 at 04:26 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -56,19 +56,20 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `receipt` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `courses_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `libelle`, `etat`, `date`, `amount`, `user_id`, `created_at`, `updated_at`) VALUES
-(14, 'course de safiatou', 'en attente', '2020-01-07', NULL, 2, '2020-01-07 10:22:48', '2020-01-07 10:22:48'),
-(12, 'course 3', 'effectue', '2020-01-18', NULL, 2, '2020-01-05 20:36:10', '2020-01-05 20:36:10'),
-(11, 'Seconde course modifiée', 'effectue', '2020-01-11', NULL, 2, '2020-01-05 20:35:37', '2020-01-07 10:40:16'),
-(8, 'course 1', 'en attente', '2020-01-30', NULL, 1, '2020-01-02 14:57:24', '2020-01-02 14:57:24');
+INSERT INTO `courses` (`id`, `libelle`, `etat`, `date`, `amount`, `user_id`, `created_at`, `updated_at`, `receipt`) VALUES
+(27, 'Achat de denrées', 'en attente', '2020-01-10', NULL, 2, '2020-01-10 09:44:33', '2020-01-10 09:44:33', NULL),
+(28, 'Achat d\'une montre', 'en attente', '2020-01-11', NULL, 2, '2020-01-10 09:45:46', '2020-01-10 09:45:46', NULL),
+(8, 'course 1', 'en attente', '2020-01-30', NULL, 1, '2020-01-02 14:57:24', '2020-01-02 14:57:24', NULL),
+(30, 'test', 'en attente', '2020-01-14', NULL, 7, '2020-01-10 10:39:47', '2020-01-10 10:39:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `course_product` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `course_product`
@@ -105,7 +106,30 @@ INSERT INTO `course_product` (`id`, `course_id`, `product_id`, `created_at`, `up
 (12, 14, 1, NULL, NULL),
 (13, 14, 2, NULL, NULL),
 (14, 14, 3, NULL, NULL),
-(15, 11, 2, NULL, NULL);
+(15, 11, 2, NULL, NULL),
+(16, 15, 16, NULL, NULL),
+(17, 15, 15, NULL, NULL),
+(18, 16, 19, NULL, NULL),
+(19, 17, 19, NULL, NULL),
+(20, 17, 20, NULL, NULL),
+(21, 18, 19, NULL, NULL),
+(22, 23, 19, NULL, NULL),
+(23, 23, 20, NULL, NULL),
+(24, 24, 19, NULL, NULL),
+(25, 24, 20, NULL, NULL),
+(26, 25, 19, NULL, NULL),
+(27, 25, 20, NULL, NULL),
+(28, 25, 22, NULL, NULL),
+(29, 26, 37, NULL, NULL),
+(30, 27, 44, NULL, NULL),
+(31, 27, 46, NULL, NULL),
+(32, 27, 47, NULL, NULL),
+(33, 27, 49, NULL, NULL),
+(34, 28, 48, NULL, NULL),
+(35, 29, 44, NULL, NULL),
+(36, 29, 44, NULL, NULL),
+(37, 30, 46, NULL, NULL),
+(38, 30, 49, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -147,6 +171,13 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('amad@gmail.com', '$2y$10$AbHOLJkVAJ2Gs10bGe/k3uKoU4TMCAnLfC8SjGJZAd6ZFpH7/HjTm', '2020-01-09 19:40:46');
+
 -- --------------------------------------------------------
 
 --
@@ -161,23 +192,24 @@ CREATE TABLE IF NOT EXISTS `products` (
   `categorie` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `disponibilite` tinyint(1) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `price`, `libelle`, `categorie`, `image`, `disponibilite`, `created_at`, `updated_at`) VALUES
-(19, 1200, 'montre', 'Alimentation', '2020-01-07-12-54-11-MU9M2_AV2.jfif', 1, '2020-01-07 11:54:11', '2020-01-07 11:54:11'),
-(18, 1000, 'test1', 'Loisirs', '2020-01-07-12-32-23-empt.PNG', 1, '2020-01-07 11:32:23', '2020-01-07 11:32:23'),
-(17, 1250, 'test', 'Alimentation', '2020-01-07-12-31-02-konel.PNG', 1, '2020-01-07 11:31:02', '2020-01-07 11:31:02'),
-(16, 1000, 'produit 1', 'Alimentation', '2020-01-07-12-30-39-konel.PNG', 1, '2020-01-07 11:30:39', '2020-01-07 11:30:39'),
-(15, 1000, 'produit 1', 'Alimentation', '2020-01-07-12-29-03-konel.PNG', 1, '2020-01-07 11:29:03', '2020-01-07 11:29:03'),
-(14, 1000, 'produit 1', 'Alimentation', '2020-01-07-12-27-58-konel.PNG', 1, '2020-01-07 11:27:58', '2020-01-07 11:27:58'),
-(13, 1000, 'produit 1', 'Alimentation', '2020-01-07-12-27-54-konel.PNG', 1, '2020-01-07 11:27:54', '2020-01-07 11:27:54');
+INSERT INTO `products` (`id`, `price`, `libelle`, `categorie`, `image`, `disponibilite`, `quantity`, `created_at`, `updated_at`) VALUES
+(44, 3, 'Lait de corps', 'ago', '2020-01-10-10-23-46-mon-lait-corps-unifiant-hydratant.jpg', 1, 12, '2020-01-10 09:23:46', '2020-01-10 09:23:46'),
+(46, 4, 'Lait entier', 'ago', '2020-01-10-10-25-05-lait.jpg', 1, 1, '2020-01-10 09:25:05', '2020-01-10 09:25:05'),
+(47, 2, 'Yaourt', 'ago', '2020-01-10-10-26-11-yaourt.jpg', 1, 2, '2020-01-10 09:26:11', '2020-01-10 09:26:11'),
+(48, 520, 'Montre', 'multimedia', '2020-01-10-10-26-50-montre.jpg', 1, 1, '2020-01-10 09:26:50', '2020-01-10 09:26:50'),
+(49, 5, 'Carottes', 'ago', '2020-01-10-10-27-21-carotte.jpeg', 1, 26, '2020-01-10 09:27:21', '2020-01-10 09:27:21'),
+(50, 200, 'Laptop', 'multimedia', '2020-01-10-10-28-06-ordinateur1.jpg', 1, 1, '2020-01-10 09:28:06', '2020-01-10 09:28:06'),
+(51, 350, 'Clean Laptop', 'multimedia', '2020-01-10-10-29-07-ordinateur.jpg', 1, 1, '2020-01-10 09:29:07', '2020-01-10 09:29:07');
 
 -- --------------------------------------------------------
 
@@ -199,16 +231,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `telephone`, `admin`, `name`, `adresse`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'amadoud.dia@test.com', '$2y$10$0MRuHrIMZDyP1ZA9sFBw8OTa1g.F71g.lgLcV9MkN.9/US32AP3VG', '0766712632', 0, 'Amadou Dia', '4 Avenue Gabriel Péri', NULL, '2020-01-02 14:28:00', '2020-01-03 00:38:09'),
-(2, 'amad@gmail.com', '$2y$10$cEz9QwYV.FWimvXlQny8guZJx80juC7eE4SHnpb.LvLO/OKvZ./Ru', '0766712631', 1, 'Amadou Dia', '14 square du docteur', '5zYgOj3SQuUEEB5LTPvmEa3FWUz3qJ3dUZXfPAHRMVTY9Crrsz6gDotKJQa6', '2020-01-05 19:32:31', '2020-01-07 10:29:29'),
-(3, 'amadourou@tes.com', '$2y$10$sMXzsDVXnKPK.P58fDbrw.C.8JofJ6MwfnFau6IJyOxNGCJCPk6.i', NULL, 0, 'amadou', NULL, 'PdBdimxGwZ1d3H38mz7Y9vm7PUAvEmTOWx3JKbrvX7NvnGJ71cCVF99yy47K', '2020-01-07 10:38:06', '2020-01-07 10:38:06');
+(1, 'amadoud.dia@test.com', '$2y$10$0MRuHrIMZDyP1ZA9sFBw8OTa1g.F71g.lgLcV9MkN.9/US32AP3VG', '0766712632', 0, 'Amadou Dia', '4 Avenue Gabriel Péri', '1bRL1kLd3nbZrS7iwSJEi1iZ0BsmYLYYzykUPW57mgHsimzMYx0FwpdA3IlQ', '2020-01-02 14:28:00', '2020-01-03 00:38:09'),
+(2, 'amad@gmail.com', '$2y$10$cEz9QwYV.FWimvXlQny8guZJx80juC7eE4SHnpb.LvLO/OKvZ./Ru', '0766712632', 1, 'Amadou Dia', '14 square du docteur guerin', 'qThDGMyBa9gf6vIQ4uO1KXxhbg8vUBnXgifEefWZIdnJNaF1Ws9rabb42drM', '2020-01-05 19:32:31', '2020-01-08 10:52:30'),
+(3, 'amadourou@tes.com', '$2y$10$sMXzsDVXnKPK.P58fDbrw.C.8JofJ6MwfnFau6IJyOxNGCJCPk6.i', NULL, 0, 'amadou', NULL, 'PdBdimxGwZ1d3H38mz7Y9vm7PUAvEmTOWx3JKbrvX7NvnGJ71cCVF99yy47K', '2020-01-07 10:38:06', '2020-01-07 10:38:06'),
+(4, 'amadourou@test.com', '$2y$10$8scy05gtsYJPzjd.3RSeE.IIV4S7X2WGZAE8OZib4K4H59YSzByeq', NULL, 0, 'amadou', NULL, 'qCHGzNE1dkhHwZAwE3es7QyPvlwfzIspUuuCDeMi5SjuRheV9LLGnQzjKmeL', '2020-01-07 17:35:22', '2020-01-07 17:35:22'),
+(5, 'amadou@gmail.com', '$2y$10$MEpyL3w.RZP4DuBrTX7Ih./U8zrk7sCLrBWhHzj/DFYtC/tM9WY66', NULL, 0, 'sadou barry', NULL, 'HIlJs8WqeVXQEO7bUFfNamYIHEDWQ6rBtMc8VNqOxwRYuC9X28F7aP5fccey', '2020-01-09 14:19:45', '2020-01-09 14:19:45'),
+(6, 'stan@gmail.com', '$2y$10$6tHX2m3CJc3bCgGYXSAiDuY8rRntPUqPy1Z2ki5It1XKK1qLYNMay', NULL, 0, 'Stanilas Maco', NULL, 'TWsUbTTSIAZkssOHHfJbO0RW9xUEd1yCFFcChrtnNGDBEFHVzKxBgOA1F59u', '2020-01-10 10:24:53', '2020-01-10 10:24:53'),
+(7, 'safi@gmail.com', '$2y$10$jcUbRLA92ADknh./YKHl6udAkMolDQs7kEeO2iGo0txncehKhtAI6', '0666712631', 0, 'Safiatou DIALLO', '14 square du docteur guerin', 'jPDz1m7A8uIjSSCLZO5EYHLFECoVraBeM4jsVUPhHYQv7ADdAFsNpeU2xEVx', '2020-01-10 10:33:24', '2020-01-10 10:38:56');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
