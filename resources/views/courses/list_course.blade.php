@@ -57,7 +57,7 @@
                 </div>
             </section>
         @else
-            <p>pas de courses existantes</p>
+            <p class="text-warning justify-content-md-center">pas de courses existantes</p>
         @endif
     </div>
 

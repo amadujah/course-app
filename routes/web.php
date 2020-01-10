@@ -27,10 +27,13 @@ Route::resource('/courses', 'CourseController');
 
 
 /*Les methodes des produits*/
-Route::resource('/products', 'ProductController');
 Route::post('/courses.create', 'ProductController@addCourse')->name('send-products');
+Route::resource('/products', 'ProductController');
+Route::get('/products/delete/{productId}', 'ProductController@destroy');
+
 Route::post('/products.search', 'ProductController@search')->name('search');
 
+Route::get('/admin', 'UserController@index')->name('admin');
 
 Route::resource('/profile', 'UserController');
 Route::get('/contact', 'HomeController@contact');

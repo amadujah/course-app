@@ -16,7 +16,7 @@
                         <label for="libelleCourse">Libellé de la course</label>
                         <input type="text" class="form-control" id="libelleCourse" name="title"
                                placeholder="Entrer le libellé de la course" required
-                               value="{{session('user')['title']}}">
+                               value="{{old('title')}}">
                     </div>
 
                     <label>Produits</label>
@@ -35,6 +35,7 @@
                             <h3><a href="{{ route('products.index', ['fromCourse' => 1]) }}" aria-required="true">Choisir
                                     les produits</a>
                             </h3>
+                            <p class="text-danger">{{$errors->first('products')}}</p>
                         </div>
                     @endif
                     <div class="form-group">

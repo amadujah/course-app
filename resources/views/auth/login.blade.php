@@ -41,7 +41,8 @@
                             <label class="custom-control-label" for="customCheck1">Se souvenir
                                 de moi</label>
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" id="login" type="submit">Se connecter
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" id="login" type="submit">Se
+                            connecter
                         </button>
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             Mot de passe oublié?
@@ -62,7 +63,12 @@
             });
 
             $("#email").blur(function (e) {
-                login('{{route('checkEmail')}}','Cet email n\'existe pas');
+                let re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+                let email = $("#email").val();
+                const isMailValid = re.test(String(email).toLowerCase());
+                console.log(isMailValid);
+                if (isMailValid)
+                    login('{{route('checkEmail')}}', 'Cet email n\'existe pas');
             });
         });
 

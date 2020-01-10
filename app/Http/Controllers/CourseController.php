@@ -31,7 +31,7 @@ class CourseController extends Controller
         Auth::user();
         $userId = Auth::user()->getAuthIdentifier();
         $courses = Course::orderBy('date', 'desc')->where('user_id', $userId)->get();
-        return view("list_course", compact('courses'));
+        return view("courses.list_course", compact('courses'));
     }
 
     /**
@@ -42,7 +42,7 @@ class CourseController extends Controller
     public function create()
     {
         $montant = 0;
-        return view("add_course", array('montant' => $montant));
+        return view("courses.add_course", array('montant' => $montant));
     }
 
     /**
@@ -66,9 +66,11 @@ class CourseController extends Controller
         $products = json_decode($request->products, true);
         $course->save();
         //Update product with new course id
-        foreach ($products as $p) {
-            //ajouter les produits à la course
-            $course->products()->attach(((object)$p)->id);
+        if ($products != null) {
+            foreach ($products as $p) {
+                //ajouter les produits à la course
+                $course->products()->attach(((object)$p)->id);
+            }
         }
         return redirect('/courses')->with('success', 'Course ajoutée avec succès');
 
@@ -83,7 +85,7 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::find($id);
-        return view('details_course', compact('course'));
+        return view('courses.details_course', compact('course'));
     }
 
     /**
@@ -96,7 +98,7 @@ class CourseController extends Controller
     {
         $course = Course::find($id);
 
-        return view('edit_course', compact('course', 'id'));
+        return view('courses.edit_course', compact('course', 'id'));
     }
 
     /**

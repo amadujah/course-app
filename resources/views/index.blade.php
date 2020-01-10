@@ -19,7 +19,7 @@
         <div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel">
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-                <div class="item {{ $items <= 4 ? 'active' : '' }}">
+                <div class="item{{-- {{ $items <= 4 ? 'active' : '' }}--}}">
                     <div class="row">
                         @foreach( $products as $product )
 

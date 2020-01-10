@@ -162,7 +162,8 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{url('profile')}}" title="accueil compte" class="dropdown-item">Accueil
+                                <a href="{{route('profile.show', \Illuminate\Support\Facades\Auth::user()->getAuthIdentifier())}}"
+                                   title="accueil compte" class="dropdown-item">Accueil
                                     compte</a>
                             </li>
                             <li>

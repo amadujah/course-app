@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('telephone')->nullable();
             $table->string('adresse')->nullable();
             $table->string('photo')->nullable();
-            $table->boolean('admin')->default(false);
+            $table->boolean('theme')->default(false);
             $table->string('type')->default('default');
             $table->string('name'); //nom complet
             $table->rememberToken();

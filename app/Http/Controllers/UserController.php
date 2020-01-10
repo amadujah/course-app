@@ -24,9 +24,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $courseNumber = Course::where(['user_id' => $user->getAuthIdentifier()])->get()->count();
-        return view('profile', compact('user', 'courseNumber'));
+        $loggedUser = User::where('id', Auth::user()->getAuthIdentifier())->first();
+        if ($loggedUser->isAdmin()) {
+            $users = User::all();
+            return view('users', compact('users'));
+        } else {
+            return view('auth.login');
+        }
+
     }
 
     /**
@@ -58,7 +63,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $courseNumber = Course::where(['user_id' => $id])->get()->count();
+        return view('profile', compact('user', 'courseNumber'));
+
     }
 
     /**

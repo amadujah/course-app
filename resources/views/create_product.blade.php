@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label for="price">Prix (en €)</label>
-                        <input type="number" class="form-control register" id="price" name="price"
+                        <input type="text" class="form-control register" id="price" name="price"
                                placeholder="Entrer le prix du produit" required value="{{old('price')}}">
                         <p class="text-danger">{{$errors->first('price')}}</p>
                     </div>
@@ -29,8 +29,8 @@
                                placeholder="Entrer la quantité de produits" value="{{old('quantity')}}" required>
                     </div>
                     <div class="form-group">
-                        <label for="type">Catégorie du produit</label>
-                        <select name="categorie" id="title">
+                        <label for="categorie">Catégorie du produit</label>
+                        <select name="categorie" id="categorie">
                             <option value="ago">Agro-alimentaire</option>
                             <option value="multimedia">Multimédia</option>
                             <option value="mode">Mode et beauté</option>
