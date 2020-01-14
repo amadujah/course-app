@@ -36,6 +36,7 @@ Route::post('/products.search', 'ProductController@search')->name('search');
 Route::get('/admin', 'UserController@index')->name('admin');
 
 Route::resource('/profile', 'UserController');
+Route::resource('/messages', 'MessageController');
 Route::get('/contact', 'HomeController@contact');
 Route::get('/aide', 'HomeController@help');
 Route::post('/checkEmail', 'Auth\LoginController@checkEmail')->name('checkEmail');

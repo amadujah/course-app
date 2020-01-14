@@ -10,7 +10,7 @@
 
                 <div class="col-lg-12 ">
 
-                    <h1 class="page-header">My Users</h1>
+                    <h1 class="page-header">Liste des utilisateurs</h1>
 
                 </div>
 
@@ -39,7 +39,7 @@
 
                 <tbody>
                 @foreach($users as $user)
-                    <tr>
+                    <tr class="text-center">
 
                         <td>{{$user->id}}</td>
 
@@ -49,14 +49,17 @@
 
                         <td>
                             <a class="btn btn-primary"
-                               href="{{url('/products/delete/'.$user->id)}}">
+                               href="#">
                                 <i class="fa fa-eye fa-lg"></i>
                             </a>
-                            <a class="btn btn-danger"
-                               href="{{url('/products/delete/'.$user->id)}}"
-                               onclick="return confirm('Voulez-vous supprimer cet &#xE9;l&#xE9;ment?')">
-                                <i class="fa fa-trash fa-lg"></i>
-                            </a>
+                            <form method="POST" action="{{route('profile.destroy', $user->id)}}" class="btn">
+                                {{csrf_field()}}
+                                <input name="_method" type="hidden" value="DELETE">
+                                <button class="btn btn-danger" type="submit"
+                                        onclick="return confirm('Voulez-vous supprimer cet &#xE9;l&#xE9;ment?')">
+                                    <i class="fa fa-trash fa-lg"></i>
+                                </button>
+                            </form>
                             <a class="btn btn-warning"
                                href="{{url('/products/delete/'.$user->id)}}">
                                 <i class="fa fa-edit fa-lg"></i>

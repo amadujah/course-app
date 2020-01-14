@@ -1,4 +1,5 @@
-@extends("main_layout")
+{{--Si l'utlisateur connecté est l'administrateur on hérite la page admin sinon la page main-layout--}}
+@extends(!Auth::guest() ? \Illuminate\Support\Facades\Auth::user()->admin? 'admin.main' : 'main_layout' : 'main_layout');@section('title')
 @section('title')
     Modification de course
 @endsection

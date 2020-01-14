@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\Product;
 use App\User;
 use Carbon\Carbon;
@@ -12,6 +13,15 @@ use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'search');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +38,8 @@ class ProductController extends Controller
             $userId = Auth::user()->getAuthIdentifier();
 
         $user = User::where('id', $userId)->first();
-        return view('list_products', compact('products', 'fromCourse', 'user'));
+        $courses = Course::where('user_id', $userId)->get();
+        return view('products.list_products', compact('products', 'fromCourse', 'user', 'courses'));
     }
 
     /**
@@ -38,7 +49,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('create_product');
+        return view('products.create_product');
     }
 
     /**
@@ -184,7 +195,7 @@ class ProductController extends Controller
         } else {
             $fromCourse = $request->fromCourse;
             $user = Auth::user();
-            return view('list_products', compact('products', 'fromCourse', 'user'));
+            return view('products.list_products', compact('products', 'fromCourse', 'user'));
         }
     }
 }

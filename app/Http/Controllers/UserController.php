@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class UserController extends Controller
         $loggedUser = User::where('id', Auth::user()->getAuthIdentifier())->first();
         if ($loggedUser->isAdmin()) {
             $users = User::all();
-            return view('users', compact('users'));
+            $messagesCount = Message::count();
+            return view('admin.users', compact('users', 'messagesCount'));
         } else {
             return view('auth.login');
         }
@@ -103,13 +105,19 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function destroy($id)
+    function destroy($id)
     {
-        //
+        $user = User::where('id', $id)->first();
+        if ($user) {
+            try {
+                $user->delete();
+            } catch (\Exception $e) {
+
+            }
+        }
+        return redirect('profile');
     }
 }

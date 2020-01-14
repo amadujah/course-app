@@ -11,6 +11,7 @@ function login(url, erreur) {
             console.log(data['status']);
             if (data['status'] === 'failure') {
                 $('#email').css({'border': '1px solid red'}).focus();
+                $('#password').val('');
                 $('.invalid')
                     .html(erreur)
                     .show()
@@ -30,9 +31,10 @@ function login(url, erreur) {
 
 
 }
+
 jQuery(function ($) {
 
-    $(".sidebar-dropdown > a").click(function() {
+    $(".sidebar-dropdown > a").click(function () {
         $(".sidebar-submenu").slideUp(200);
         if (
             $(this)
@@ -54,14 +56,21 @@ jQuery(function ($) {
         }
     });
 
-    $("#close-sidebar").click(function() {
+    $("#close-sidebar").click(function () {
         $(".page-wrapper").removeClass("toggled");
     });
-    $("#show-sidebar").click(function() {
+    $("#show-sidebar").click(function () {
         $(".page-wrapper").addClass("toggled");
     });
 
 
-
-
 });
+
+function saveItemsLocally() {
+    const libelle = $('#libelleCourse').val();
+    sessionStorage.setItem('libelle', libelle);
+}
+
+function getData() {
+    alert('test ' + sessionStorage.getItem('libelle'));
+}

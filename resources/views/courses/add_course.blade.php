@@ -1,4 +1,5 @@
-@extends("main_layout")
+{{--Si l'utlisateur connecté est l'administrateur on hérite la page admin sinon la page main-layout--}}
+@extends(!Auth::guest() ? \Illuminate\Support\Facades\Auth::user()->admin? 'admin.main' : 'main_layout' : 'main_layout');@section('title')
 @section('title')
     Ajout de courses
 @endsection
@@ -22,17 +23,26 @@
                     <label>Produits</label>
                     @if(isset($productsArray))
                         <input type="hidden" value="{{json_encode($productsArray)}}" name="products">
-                        <div class="row">
-                            @foreach($productsArray as $product)
-                                <div class="col-lg-4">
+                        <div class="row image">
+                            @foreach($productsArray as $productKey => $product)
+                                <div class="col-lg-4 actions">
+                                    <a href="#" class="fa fa-trash fa-lg"
+                                       style="z-index :1;">{{$product->unset}}</a>
+
+
                                     <img class="img-thumbnail" src="{{ url('public/images/'.$product->image) }}"
                                          alt="image du produit">
+
                                 </div>
                             @endforeach
+                            <h3><a id="loadProducts" href="{{ route('products.index', ['fromCourse' => 1]) }}"
+                                   class="fa fa-plus fa-lg" aria-required="true" onclick="saveItemsLocally()"></a>
+                            </h3>
                         </div>
                     @else
                         <div>
-                            <h3><a href="{{ route('products.index', ['fromCourse' => 1]) }}" aria-required="true">Choisir
+                            <h3><a id="loadProducts" href="{{ route('products.index', ['fromCourse' => 1]) }}"
+                                   aria-required="true" onclick="saveItemsLocally()">Choisir
                                     les produits</a>
                             </h3>
                             <p class="text-danger">{{$errors->first('products')}}</p>
@@ -62,21 +72,20 @@
                                placeholder="01/01/2019" required>
                     </div>
 
-                    <a type="submit" class="btn btn-danger btn-lg" href="{{url()->previous()}}" style="color: white">Annuler</a>
+                    <a type="submit" class="btn btn-danger btn-lg" href="{{ route('courses.index') }}"
+                       style="color: white">Annuler</a>
 
                     <button type="submit" class="btn btn-success btn-lg" {{ !isset($productsArray) ?'disabled' : ''}}>
                         Enregistrer
                     </button>
                 </form>
-                <script type="text/javascript">
-                    document.getElementsByClassName('form_datetime').datetimepicker({
-                        format: "dd MM yyyy - hh:ii",
-                        autoclose: true,
-                        todayBtn: true,
-                        pickerPosition: "bottom-left"
-                    });
-                </script>
             </div>
         </div>
     </div>
+    <script>
+        $(function () {
+            $('#libelleCourse').val(sessionStorage.getItem('libelle'));
+            sessionStorage.setItem('libelle', '');
+        })
+    </script>
 @endsection

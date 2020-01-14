@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="row user-infos cyruxx">
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 offset-xs-0 offset-sm-0 offset-md-1 offset-lg-1">
+        <div class="col-lg-10 offset-xs-0 offset-sm-0 offset-md-1 offset-lg-1">
             <div class="card card-primary">
                 <div  class="card-header">
                     @if(session('success'))
@@ -19,7 +19,7 @@
                                  src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
                                  alt="User Pic">
                         </div>
-                        <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                        <div class=" col-md-9  hidden-xs hidden-sm">
                             <form action="{{ route('profile.update', encrypt($user->id)) }}" method="post">
                                 {{csrf_field()}}
                                 {{ method_field('PUT')}}

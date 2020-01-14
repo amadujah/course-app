@@ -66,7 +66,6 @@
                 let re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
                 let email = $("#email").val();
                 const isMailValid = re.test(String(email).toLowerCase());
-                console.log(isMailValid);
                 if (isMailValid)
                     login('{{route('checkEmail')}}', 'Cet email n\'existe pas');
             });

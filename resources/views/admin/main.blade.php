@@ -3,6 +3,7 @@
 
 <head>
     <meta name="csrf-token" content="{{csrf_token()}}"/>
+    <link rel="shortcut icon" href="{{ ('public/favicon.ico') }}">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('public/css/custom-style.css') }}">
@@ -99,14 +101,8 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="user-pic">
-                    <img class="img-responsive img-rounded"
-                         src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                         alt="User picture">
-                </div>
                 <div class="user-info">
-          <span class="user-name">Amad
-            <strong>Dia</strong>
+          <span class="user-name">{{ \Illuminate\Support\Facades\Auth::user()->name }}
           </span>
                     <span class="user-role">Administrator</span>
                     <span class="user-status">
@@ -136,7 +132,7 @@
                     </li>
                     <li class="sidebar-dropdown">
                         <a href="{{ url('profile') }}">
-                            <i class="fa fa-tachometer-alt"></i>
+                            <i class="fa fas fa-users"></i>
                             <span>Gestion des utilisateurs</span>
                         </a>
                     </li>
@@ -148,7 +144,7 @@
                     </li>
                     <li class="sidebar-dropdown">
                         <a href="{{ url('courses') }}">
-                            <i class="far fa-gem"></i>
+                            <i class="fa fas fa-shopping-basket"></i>
                             <span>Gestion des courses</span>
                         </a>
                     </li>
@@ -189,11 +185,19 @@
         <div class="sidebar-footer">
             <a href="#">
                 <i class="fa fa-bell"></i>
-                <span class="badge badge-pill badge-warning notification">3</span>
+                <span class="badge badge-pill badge-warning notification"></span>
             </a>
-            <a href="#">
+            <a href="{{route('messages.index')}}">
                 <i class="fa fa-envelope"></i>
-                <span class="badge badge-pill badge-success notification">7</span>
+                <span class="badge badge-pill badge-success notification">
+                    @if(isset($messagesCount))
+                        {{ $messagesCount }}
+                    @elseif(isset($messages))
+                        {{count($messages)}}
+                    @else
+                        0
+                    @endif
+                </span>
             </a>
             <a href="#">
                 <i class="fa fa-cog"></i>

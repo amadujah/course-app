@@ -3,23 +3,26 @@
     Contact
 @endsection
 @section('content')
-    <!--Section: Contact v.2-->
     <section class="mb-4">
-
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-        <!--Section description-->
-        <p class="text-center w-responsive mx-auto mb-5">Avez-vous des questions? N'hésitez pas à nous contacter
-            directement. Notre équipe reviendra vers vous en quelques heures pour vous aider.</p>
-        <!--Grid row-->
         <div class="card">
-            <div class="card-block " style="padding: 2%">
-                <div class="card-body">
+            <div class="card-header">
+                <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+
+                <p class="text-center w-responsive mx-auto mb-5">Avez-vous des questions? N'hésitez pas à nous contacter
+                    directement. Notre équipe reviendra vers vous en quelques heures pour vous aider.</p>
+                @if(session('success'))
+                    <div class="alert alert-success">{{session('success')}}</div>
+                @endif
+            </div>
+            <div class="card-block " style="padding: 2%; background: lightgray">
+                <div class="card-body" >
                     <div class="row">
 
                         <!--Grid column-->
                         <div class="col-md-9 mb-md-0 mb-5">
-                            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+                            <form id="contact-form" name="contact-form" action="{{route('messages.store')}}"
+                                  method="POST">
+                                {{csrf_field()}}
 
 
                                 <div class="row">
@@ -27,18 +30,22 @@
                                     <!--Grid column-->
                                     <div class="col-md-6">
                                         <div class="form-label-group">
-                                            <input type="text" id="name" name="name" class="form-control" required>
+                                            <input type="text" id="name" name="name" class="form-control" required
+                                                   value="{{\Illuminate\Support\Facades\Auth::user()->name}}">
                                             <label for="name" class="">Entrez votre nom</label>
                                         </div>
+                                        <p class="text-danger">{{$errors->first('name')}}</p>
                                     </div>
                                     <!--Grid column-->
 
                                     <!--Grid column-->
                                     <div class="col-md-6">
                                         <div class="form-label-group">
-                                            <input type="text" id="email" name="email" class="form-control" required>
+                                            <input type="text" id="email" name="email" class="form-control"
+                                                   value="{{\Illuminate\Support\Facades\Auth::user()->email}}" required>
                                             <label for="email" class="">Votre email</label>
                                         </div>
+                                        <p class="text-danger">{{$errors->first('email')}}</p>
                                     </div>
                                     <!--Grid column-->
 
@@ -52,9 +59,12 @@
                                             <input type="text" id="subject" name="subject" class="form-control"
                                                    required>
                                             <label for="subject" class="">Sujet</label>
+
                                         </div>
                                     </div>
                                 </div>
+                                <p class="text-danger">{{$errors->first('subject')}}</p>
+
                                 <!--Grid row-->
 
                                 <!--Grid row-->
@@ -63,14 +73,14 @@
                                     <!--Grid column-->
                                     <div class="col-md-12">
                                         <div class="form-label-group">
-                                <textarea type="text" id="message" name="message" rows="2"
-                                          class="form-control md-textarea" placeholder="Votre message"></textarea>
-                                        </div>
+                                            <textarea type="text" id="message" name="message" rows="2"
+                                                      class="form-control md-textarea"
+                                                      placeholder="Votre message"></textarea>
+                                            <p class="text-danger">{{$errors->first('message')}}</p>
 
+                                        </div>
                                     </div>
                                 </div>
-                                <!--Grid row-->
-
 
                             </form>
 
@@ -86,18 +96,4 @@
             </div>
         </div>
     </section>
-    <script>
-        function validateEmail() {
-            console.log('test');
-            const email = document.getElementById('email');
-            var re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-            var isMailValid = re.test(String(email.value).toLowerCase());
-            if (!isMailValid) {
-                email.style.borderColor = "red";
-                email.alt = 'Saisir un bon email';
-            }
-            console.log(re.test(String(email.value).toLowerCase()));
-            return re.test(String(email.value).toLowerCase());
-        }
-    </script>
 @endsection

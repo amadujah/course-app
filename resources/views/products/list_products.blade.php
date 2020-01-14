@@ -1,4 +1,5 @@
-@extends('main_layout')
+{{--Si l'utlisateur connecté est l'administrateur on hérite la page admin sinon la page main-layout--}}
+@extends(!Auth::guest() ? $user->admin? 'admin.main' : 'main_layout' : 'main_layout');
 @section('title')
     Liste de produits
 @endsection
@@ -87,13 +88,20 @@
                                             <div class="row" style="background: transparent">
                                                 <div class="col">
                                                     <h5 class="card-title ">{{$product->libelle}}</h5>
+
                                                 </div>
+
+
                                                 <div class="col">
                                                     <h5 class="price-text-color">
                                                         {{$product->price}} €</h5>
                                                 </div>
                                                 <div class="w-100"></div>
                                                 <div class="col">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    <p><a
+                                                                id="add-to-course"
+                                                                class="hidden-sm">Ajouter à une course</a></p>
                                                     @if($product->quantity)
                                                         <label>
                                                             <select class="custom-select">
@@ -102,22 +110,24 @@
                                                                 @endfor
                                                             </select>
                                                         </label>
+
                                                     @else
                                                         <h6 class="hidden-sm alert-warning">Produit non
                                                             disponible</h6>
 
                                                     @endif
                                                 </div>
-                                                @if (!Auth::guest())
-                                                    @if($user->admin)
-                                                        <a class="btn btn-danger" id="delete-product"
-                                                           href="{{url('/products/delete/'.$product->id)}}"
-                                                           onclick="return confirm('Voulez-vous supprimer cet &#xE9;l&#xE9;ment?')">
-                                                            <i class="fa fa-trash fa-lg"></i>
-                                                        </a>
+                                                <div>
+                                                    @if (!Auth::guest())
+                                                        @if($user->admin)
+                                                            <a class="btn btn-danger" id="delete-product"
+                                                               href="{{url('/products/delete/'.$product->id)}}"
+                                                               onclick="return confirm('Voulez-vous supprimer cet &#xE9;l&#xE9;ment?')">
+                                                                <i class="fa fa-trash fa-lg"></i>
+                                                            </a>
+                                                        @endif
                                                     @endif
-                                                @endif
-
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -149,6 +159,11 @@
         $('select#categorie').change(function (e) {
             $('#form-category').submit();
         });
+        $('#add-to-course').click(function () {
+            console.log('add course');
+            const course = $('#list-course');
+            if (course.is(':hidden'))
+                $('#add-to-course').show();
+        })
     </script>
-    <script src="{{asset('public/js/form.js')}}"></script>
-@endsection
+    =@endsection

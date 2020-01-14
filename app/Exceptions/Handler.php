@@ -56,10 +56,24 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+
+        if ($this->isHttpException($exception)) {
+            //Personnaliser l'affichage des erreurs
+            if ($exception->getStatusCode() == 404) {
+                return response()->view('errors.' . '404', [], 404);
+            }
+
+            if ($exception->getStatusCode() == 500) {
+                return response()->view('errors.' . '500', [], 500);
+            }
+        }
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
         return redirect()->guest(route('login'));
     }
+    /*
+     *
+     */
 }

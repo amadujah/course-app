@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,8 @@ class CourseController extends Controller
     public function create()
     {
         $montant = 0;
-        return view("courses.add_course", array('montant' => $montant));
+        $products = Product::all();
+        return view("courses.add_course", compact('montant', 'products'));
     }
 
     /**
@@ -145,7 +147,7 @@ class CourseController extends Controller
         DB::table('courses')
             ->where('id', $id)
             ->delete();
-        return redirect('courses');
+        return redirect('courses')->with('success', 'Course supprimée avec succès');;
     }
 
     /**
@@ -166,6 +168,6 @@ class CourseController extends Controller
         $course->receipt = $filename;
         $course->save();
 
-        return redirect('courses');
+        return redirect('courses.index');
     }
 }
