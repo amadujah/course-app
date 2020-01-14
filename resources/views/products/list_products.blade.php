@@ -73,7 +73,7 @@
 
                                             <img class="img-fluid card-img-top"
                                                  src="{{ url('public/images/'.$product->image) }}"
-                                                 alt="..." width="350px" height="260px"
+                                                 alt="impossible d'afficher l'image" width="350px" height="260px"
                                                  style="max-width: 100%; max-height: 100%"/>
 
                                             <input type="checkbox" class="custom-checkbox center_div"
