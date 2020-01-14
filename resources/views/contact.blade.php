@@ -31,7 +31,7 @@
                                     <div class="col-md-6">
                                         <div class="form-label-group">
                                             <input type="text" id="name" name="name" class="form-control" required
-                                                   value="{{\Illuminate\Support\Facades\Auth::user()->name}}">
+                                                   value="">
                                             <label for="name" class="">Entrez votre nom</label>
                                         </div>
                                         <p class="text-danger">{{$errors->first('name')}}</p>
@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="form-label-group">
                                             <input type="text" id="email" name="email" class="form-control"
-                                                   value="{{\Illuminate\Support\Facades\Auth::user()->email}}" required>
+                                                   value="" required>
                                             <label for="email" class="">Votre email</label>
                                         </div>
                                         <p class="text-danger">{{$errors->first('email')}}</p>
