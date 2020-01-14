@@ -1,4 +1,4 @@
-@extends('main_layout')
+@extends(!Auth::guest() ? \Illuminate\Support\Facades\Auth::user()->admin? 'admin.main' : 'main_layout' : 'main_layout');@section('title')
 @section('title')
     Informations utilisateurs
 @endsection
