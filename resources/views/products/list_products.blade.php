@@ -98,14 +98,10 @@
                                                 </div>
                                                 <div class="w-100"></div>
                                                 <div class="col">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                    <p><a
-                                                                id="add-to-course"
-                                                                class="hidden-sm">Ajouter à une course</a></p>
                                                     @if($product->quantity)
                                                         <label>
                                                             <select class="custom-select">
-                                                                @for($i=1; $i <$product->quantity; $i++)
+                                                                @for($i=1; $i <=$product->quantity; $i++)
                                                                     <option>{{$i}}</option>
                                                                 @endfor
                                                             </select>
