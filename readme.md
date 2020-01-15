@@ -26,7 +26,7 @@ Et effectuer les modifications en 2.
 Importer le fichier app_course.sql disponible à la racine du projet sur MySQL (Vous pouvez utilisez phpMyAdmin)
 
 
-Vous pouvez avoir un apperçu du projet qui est héberger sur heroku : 
+Vous pouvez avoir un apperçu du projet qui est hébergé sur heroku : 
 http://course-appli.herokuapp.com
 
 
