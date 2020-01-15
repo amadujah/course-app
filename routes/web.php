@@ -25,6 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('add-receipt', 'CourseController@addReceipt')->name('add-receipt');
 Route::resource('/courses', 'CourseController');
 
+Route::get('/courses.create', 'CourseController@create');
+
 
 /*Les methodes des produits*/
 Route::post('/courses.create', 'ProductController@addCourse')->name('send-products');

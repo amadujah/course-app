@@ -1,12 +1,7 @@
-@extends('admin.main')
+@extends(!Auth::guest() ? \Illuminate\Support\Facades\Auth::user()->admin? 'admin.main' : 'main_layout' : 'main_layout');@section('title')
 @section('title')
     Liste des messages
 @endsection
-@section('content')
-    @extends('admin.main')
-
-
-
 @section('content')
 
     <div class="row">
@@ -20,10 +15,6 @@
                 </div>
 
             </div>
-
-            <!-- /.row -->
-
-
             <table class="card-body table table-striped table-bordered table-hover">
 
                 <thead>
@@ -101,12 +92,9 @@
     </div>
     <script>
         $('#theModal').on('show.bs.modal', function (e) {
-
             var button = $(e.relatedTarget);
             var modal = $(this);
-
             modal.find('.modal-body').load(button.data("remote"));
-
         });
 
     </script>

@@ -49,7 +49,7 @@
 
                         <td>
                             <a class="btn btn-primary"
-                               href="#">
+                               href="{{route('profile.show', $user->id)}}">
                                 <i class="fa fa-eye fa-lg"></i>
                             </a>
                             <form method="POST" action="{{route('profile.destroy', $user->id)}}" class="btn">
@@ -61,7 +61,7 @@
                                 </button>
                             </form>
                             <a class="btn btn-warning"
-                               href="{{url('/products/delete/'.$user->id)}}">
+                               href="{{route('profile.show', $user->id)}}">
                                 <i class="fa fa-edit fa-lg"></i>
                             </a>
                         </td>

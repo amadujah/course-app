@@ -65,7 +65,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
+        $user = User::where('id', $id)->first();
         $courseNumber = Course::where(['user_id' => $id])->get()->count();
         return view('profile', compact('user', 'courseNumber'));
 

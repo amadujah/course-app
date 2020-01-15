@@ -6,7 +6,7 @@
     <div class="row user-infos cyruxx">
         <div class="col-lg-10 offset-xs-0 offset-sm-0 offset-md-1 offset-lg-1">
             <div class="card card-primary">
-                <div  class="card-header">
+                <div class="card-header">
                     @if(session('success'))
                         <div class="alert alert-success"> {{session('success')}} </div>
                     @endif
@@ -50,6 +50,14 @@
                                     <tr>
                                         <td><label for="adresse">Adresse</label></td>
                                         <td><input id="adresse" type="text" value="{{$user->adresse}}" name="adresse">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="user">Type Utilisateur</label></td>
+                                        <td><select id="user">
+                                                <option>Administrateur</option>
+                                                <option>Standard</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -3,7 +3,6 @@
 @section('title')
     Ajout de courses
 @endsection
-
 @section('content')
     <div class="col-md-8 offset-md-2">
         <div class="card shadow">
@@ -72,6 +71,10 @@
                                placeholder="01/01/2019" required>
                     </div>
 
+                    <div class="col-md-offset-4 col-md-6">
+                        <div class="g-recaptcha" data-sitekey="6Ld8W88UAAAAAMi0aQ4rkfbA9En7w9SUq6bBLg8z"></div>
+                        <p class="text-danger">{!! $errors->first('g-recaptcha-response') !!}</p>
+                    </div>
                     <a type="submit" class="btn btn-danger btn-lg" href="{{ route('courses.index') }}"
                        style="color: white">Annuler</a>
 

@@ -62,8 +62,10 @@ class CourseController extends Controller
         Auth::user();
         $course = new Course();
         $this->validate($request, [
-            'products' => 'required'
+            'products' => 'required',
+            'g-recaptcha-response' => 'required'
         ]);
+
         $course->libelle = $request->title;
         $course->date = $request->date;
         $course->etat = $request->status;
@@ -168,6 +170,6 @@ class CourseController extends Controller
         $course->receipt = $filename;
         $course->save();
 
-        return redirect('courses.index');
+        return redirect('courses');
     }
 }

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="{{ ('public/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('public/css/custom-style.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         body {
             /*background-color:aliceblue;*/
@@ -190,7 +191,14 @@
 </div>
 <!-- Scripts -->
 <script src="{{asset('public/js/custom.js')}}" type="text/javascript"></script>
-
+{{--Le script suivant permet de mettre le menu en blanc quand on passe la souris au-dessus de l'element--}}
+<script>
+    $('.nav-link').mouseover(function () {
+        $(this).addClass('active')
+    }).mouseout(function() {
+        $( this).removeClass('active');
+    });
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
