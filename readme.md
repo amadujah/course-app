@@ -9,19 +9,22 @@ L'utilisateur simple peut créer, modifier ou supprimer une course. Tandis que l
 ## 1. Installation
 Pour utiliser le projet il faut avoir préalablement PHP 7+ installé et composer
 ALlez dans un dossier de votre choix et tapez les commandes suivantes :
-
+```
 $ cd course-add
 $ git clone https://github.com/amad1dia/course-app.git
 $ cd course-app
 $ composer update
 $ php artisan serve
+```
 ## 2. Modification à effectuer
 Mettre à jour le fichier .env en changeant les bonnes informations de connexion à la base de données.
 Si le fichier n'existe pas, tapez la commande :
+```
 $ cp .env.example .env
+```
 Et effectuer les modifications en 2.
 
-Vous pouvez avoir un apperçu du projet qui est héberger sur heroku
+Vous pouvez avoir un apperçu du projet qui est héberger sur heroku : 
 http://course-appli.herokuapp.com
 
 
