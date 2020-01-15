@@ -8,9 +8,8 @@ L'utilisateur simple peut créer, modifier ou supprimer une course. Tandis que l
 ## Installation et  utilisation du projet
 ## 1. Installation
 Pour utiliser le projet il faut avoir préalablement PHP 7+ installé et composer
-ALlez dans un dossier de votre choix et tapez les commandes suivantes :
+Allez dans un dossier de votre choix et tapez les commandes suivantes :
 ```
-$ cd course-add
 $ git clone https://github.com/amad1dia/course-app.git
 $ cd course-app
 $ composer update
@@ -23,6 +22,8 @@ Si le fichier n'existe pas, tapez la commande :
 $ cp .env.example .env
 ```
 Et effectuer les modifications en 2.
+Importer le fichier app_course.sql disponible à la racine du projet sur MySQL (Vous pouvez utilisez phpMyAdmin)
+
 
 Vous pouvez avoir un apperçu du projet qui est héberger sur heroku : 
 http://course-appli.herokuapp.com
