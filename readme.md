@@ -7,7 +7,8 @@ L'utilisateur simple peut créer, modifier ou supprimer une course. Tandis que l
 
 ## Installation et  utilisation du projet
 ## 1. Installation
-Pour utiliser le projet il faut avoir préalablement PHP 7+ installé et composer
+Pour utiliser le projet il faut avoir préalablement PHP 7+ installé et **composer**
+
 Allez dans un dossier de votre choix et tapez les commandes suivantes :
 ```
 $ git clone https://github.com/amad1dia/course-app.git
